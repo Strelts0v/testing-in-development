@@ -32,7 +32,7 @@ export class HeroService {
     }
 
     delete(id: number): Promise<void> {
-        const url = `${this.heroesUrl}/${id}`;
+        const url = this.heroesUrl + "/delete/hero?id=" + id;
         return this.http.delete(url, {headers: this.getHeaders()})
             .toPromise()
             .then(() => null)
@@ -40,15 +40,16 @@ export class HeroService {
     }
 
     create(name: string): Promise<Hero> {
+        const url = this.heroesUrl + '/add/hero';
         return this.http
-            .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.getHeaders()})
+            .post(url, JSON.stringify({name: name}), {headers: this.getHeaders()})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
     }
 
     update(hero: Hero): Promise<Hero> {
-        const url = `${this.heroesUrl}/${hero.id}`;
+        const url = this.heroesUrl + '/update/hero';
         return this.http
             .put(url, JSON.stringify(hero), {headers: this.getHeaders()})
             .toPromise()
@@ -68,8 +69,6 @@ export class HeroService {
             'Content-Type': 'application/json',
         });
         return headers;
-        
-        // headers.append('Accept', 'application/json');
     }
 }
 
