@@ -3,7 +3,10 @@ package com.vg.server.service;
 import com.vg.server.model.Hero;
 import com.vg.server.repository.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class HsqldbHeroService implements HeroService {
@@ -17,17 +20,32 @@ public class HsqldbHeroService implements HeroService {
     }
 
     @Override
-    public Iterable<Hero> findHeroesByName(String namePattern) {
+    public List<Hero> findHeroesByName(String namePattern) {
         return repository.findByName(namePattern);
     }
 
     @Override
-    public Iterable<Hero> getHeroes(int count) {
-        return repository.getHeroes(count);
+    public List<Hero> getHeroesLimited(int count) {
+        return repository.getHeroesLimited(new PageRequest(0, count));
     }
 
     @Override
     public Iterable<Hero> getAllHeroes() {
         return repository.findAll();
+    }
+
+    @Override
+    public Hero addHero(Hero hero) {
+        return repository.save(hero);
+    }
+
+    @Override
+    public int updateHero(long id, Hero hero) {
+        return repository.updateHero(id, hero.getName());
+    }
+
+    @Override
+    public void deleteHero(long id) {
+        repository.delete(id);
     }
 }
