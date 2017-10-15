@@ -16,8 +16,8 @@ public class GmailEmailServiceManualTest {
 
     @Test
     public void sendEmailMessageToReadEmailAddressTest() throws Exception {
-        final String toEmail = "gleb.streltsov.4by@gmail.com";
-        final String fromEmail = "ka1oken4by@gmail.com";
+        final String toEmail = "real-email@gmail.com";
+        final String fromEmail = "real-email@gmail.com";
         final String subject = "test subject";
         final String body = "test body";
 
